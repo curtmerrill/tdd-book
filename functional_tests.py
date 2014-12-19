@@ -38,21 +38,25 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacock feathers' for row in rows),
-            "New to-do item does not appear in table"
-        )
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 
         # A second text-box invites her to add another item to the
         # list, so she enters "use feathers to make a fly"
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('use feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
 
-        self.fail('Finish the tests!')
 
         # The page updates again, showing both items in the list
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn('2: use feathers to make a fly', [row.text for row in rows])
 
         # Edith wonders if the site will remember her list. The site has
         # generated what looks like a unique URL and there is some help
         # text affirming that her list is safe.
+        self.fail('Finish the tests!')
 
         # She visits the unique URL and sees her list
 
