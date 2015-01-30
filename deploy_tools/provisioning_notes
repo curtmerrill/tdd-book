@@ -1,0 +1,35 @@
+Provisioning a new site
+=======================
+
+## Required pacakges:
+  * nginx
+  * Python3
+  * git
+  * pip
+  * virtualenv
+
+eg, on Ubuntu:
+
+    sudo apt-get install nginx git python3 python3-pip
+    sudo pip3 install virtualenv
+
+## Nginx Virtual host config
+  * see nginx.template.conf
+  * replace SITENAME with, eg, staging.domain.com
+  * replace STATICDIR with location fo static files
+
+## Upstart job
+  * see gunicorn-upstart.template.conf
+  * goes in /etc/init/
+  * replace VARIABLES in caps with appropriate values
+
+## Folder structure
+Demo structure assumes user account at /home/username:
+
+/home/username
+└── sites
+    └── SITENAME
+        ├── database
+        ├── source
+        ├── static
+        └── virtualenv
